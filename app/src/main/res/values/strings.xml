@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Siparis Takip</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_activity_setting">SettingActivity</string>
+    <string name="title_activity_detail">DetailActivity</string>
+</resources>
