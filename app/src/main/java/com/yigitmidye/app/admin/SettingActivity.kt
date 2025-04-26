@@ -13,8 +13,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.yigitmidye.app.admin.presentation.screen.setting.SettingScreen
 import com.yigitmidye.app.admin.ui.theme.SiparisTakipTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SettingActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +26,7 @@ class SettingActivity : ComponentActivity() {
             systemUiController.setStatusBarColor(color = colorResource(R.color.app_const_color))
             systemUiController.setNavigationBarColor(color = colorResource(R.color.white))
             SiparisTakipTheme(darkTheme = false) {
-
+                SettingScreen()
             }
         }
     }

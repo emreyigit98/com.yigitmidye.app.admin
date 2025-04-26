@@ -7,6 +7,7 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.firestore.Source
 import com.yigitmidye.app.admin.domain.repo.firestore.FirebaseFireStoreRepo
 import javax.inject.Inject
 
@@ -24,5 +25,13 @@ class FirebaseFireStoreRepoImpl @Inject constructor(private val firebase: Fireba
 
     override fun updateOrderStatus(documentId: String, param: String): Task<Void> {
         return firebase.collection("orders").document(documentId).update("orderStatus",param)
+    }
+
+    override fun updateShop(param: Boolean): Task<Void> {
+        return firebase.collection("shop").document("shopopen").update("open",param)
+    }
+
+    override fun getShopStatus(): Task<DocumentSnapshot> {
+        return firebase.collection("shop").document("shopopen").get(Source.SERVER)
     }
 }

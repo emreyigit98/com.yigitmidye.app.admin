@@ -92,7 +92,7 @@ fun DetailCard(
                 )
             }
             Text(
-                text = "",
+                text = ordersModel.customerName,
                 modifier = modifier.padding(horizontal = 10.dp, vertical = 10.dp),
                 fontWeight = FontWeight.W400,
                 fontSize = 12.sp

@@ -9,6 +9,10 @@ data class OrdersModel(
     val userId : String = "",
     @Property("address")
     val address : String = "",
+    @Property("customerName")
+    val customerName : String = "",
+    @Property("userToken")
+    val userToken : String = "",
     @Property("orderNote")
     val orderNote : String = "",
     @Property("orderStatus")
