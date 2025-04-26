@@ -26,7 +26,7 @@ class CancelViewModel @Inject constructor(private val getOrdersUseCase: GetOrder
 
     private fun fetchCancelList() {
         job = viewModelScope.launch {
-            getOrdersUseCase.invoke(queryParam = "").collect { result ->
+            getOrdersUseCase.invoke(queryParam = "Siparişiniz iptal edildi").collect { result ->
                 when(result) {
                     is Resource.Error<*> -> {
                         _cancelUiState.update { it.copy(loading = false, errorMessage = null, cancelList = null) }

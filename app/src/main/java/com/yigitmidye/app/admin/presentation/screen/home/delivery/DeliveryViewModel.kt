@@ -26,7 +26,7 @@ class DeliveryViewModel @Inject constructor(private val getOrdersUseCase: GetOrd
 
     private fun fetchDeliveryList() {
         job = viewModelScope.launch {
-            getOrdersUseCase.invoke(queryParam = "").collect { result ->
+            getOrdersUseCase.invoke(queryParam = "Siparişiniz teslim edildi").collect { result ->
                 when(result) {
                     is Resource.Error<*> -> {
                         _deliveryUiState.update { it.copy(loading = false, errorMessage = result.message, deliveryList = null) }

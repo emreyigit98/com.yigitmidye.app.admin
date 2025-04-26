@@ -1,6 +1,7 @@
 package com.yigitmidye.app.admin.presentation.screen.detail
 
 import android.app.Activity
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -33,6 +34,7 @@ fun DetailScreen(
     val documentId = intent?.getStringExtra("documentId") ?: ""
 
     val detailUiState by detailViewModel.detailUiState.collectAsState()
+    val updateOrderUiState by detailViewModel.updateOrderStatusUiState.collectAsState()
 
     LaunchedEffect(Unit) {
         detailViewModel.fetchOrderDetail(documentId = documentId)
@@ -41,6 +43,7 @@ fun DetailScreen(
     Scaffold(
         topBar = {
             DetailTopAppBar(
+                loading = updateOrderUiState.loading,
                 onBack = {
                     activity?.finish()
                 }
@@ -64,7 +67,20 @@ fun DetailScreen(
                     .padding(paddingValues = paddingValues)
             )
         }
+        updateOrderUiState.errorMessage?.let {
+            ErrorItem(
+                message = it,
+                modifier = modifier
+                    .fillMaxSize()
+                    .background(color = colorResource(R.color.white))
+                    .padding(paddingValues = paddingValues)
+            )
+        }
         detailUiState.order?.let { orderModel ->
+            if (updateOrderUiState.status) {
+                Toast.makeText(context,"Durum başarılı bir şekilde güncellendi",Toast.LENGTH_LONG).show()
+                activity?.finish()
+            }
             LazyColumn(
                 modifier = modifier
                     .fillMaxSize()
@@ -75,7 +91,7 @@ fun DetailScreen(
                     DetailCard(
                         ordersModel = orderModel,
                         updateStatus = { status ->
-
+                            detailViewModel.updateOrderStatus(documentId = documentId, param = status)
                         }
                     )
                 }

@@ -9,4 +9,5 @@ import com.google.firebase.firestore.Query
 interface FirebaseFireStoreRepo {
     fun getLocalDateOrders(queryParam : String,startDate : Timestamp,endDate : Timestamp) : Query
     fun getLocalDateOrdersDetail(documentId : String) : Task<DocumentSnapshot>
+    fun updateOrderStatus(documentId : String,param : String) : Task<Void>
 }

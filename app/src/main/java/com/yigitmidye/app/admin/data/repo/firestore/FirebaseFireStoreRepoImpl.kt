@@ -21,4 +21,8 @@ class FirebaseFireStoreRepoImpl @Inject constructor(private val firebase: Fireba
     override fun getLocalDateOrdersDetail(documentId: String): Task<DocumentSnapshot> {
         return firebase.collection("orders").document(documentId).get()
     }
+
+    override fun updateOrderStatus(documentId: String, param: String): Task<Void> {
+        return firebase.collection("orders").document(documentId).update("orderStatus",param)
+    }
 }
