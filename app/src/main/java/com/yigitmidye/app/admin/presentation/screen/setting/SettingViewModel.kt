@@ -2,6 +2,7 @@ package com.yigitmidye.app.admin.presentation.screen.setting
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
@@ -35,12 +36,8 @@ class SettingViewModel @Inject constructor(
         FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val token = task.result
-                FirebaseFirestore.getInstance().collection("adminTokens")
-                    .document("allTokens")
-                    .set(
-                        hashMapOf("fcmToken" to FieldValue.arrayUnion(token)),
-                        SetOptions.merge()
-                    )
+                FirebaseFirestore.getInstance().collection("adminToken").document("token")
+                    .set(hashMapOf("fcmToken" to token), SetOptions.merge())
             }
         }
     }
