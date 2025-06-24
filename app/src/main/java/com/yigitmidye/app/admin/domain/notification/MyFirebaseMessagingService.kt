@@ -44,27 +44,19 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         remoteMessage.notification?.let { notification ->
             val title = notification.title ?: "Başlık Yok"
             val body = notification.body ?: "Mesaj Yok"
-
-            Log.d("FCM", "Bildirim alındı: $title - $body")
-
             showNotification(title, body)
         }
     }
-
     private fun showNotification(title: String, message: String) {
-        // 1. İzin kontrolü (Android 13+)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(
                     this,
                     android.Manifest.permission.POST_NOTIFICATIONS
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
-                Log.w("FCM", "Bildirim izni reddedildi!")
-                return // İzin yoksa işlemi iptal et
+                return
             }
         }
-
-        // 2. Bildirim oluşturma (izin varsa devam et)
         val notificationId = System.currentTimeMillis().toInt()
 
         val intent = Intent(this, MainActivity::class.java).apply {
@@ -86,13 +78,12 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setAutoCancel(true)
             .setSound(soundUri)
+            .setVibrate(longArrayOf(1000, 1000, 1000, 1000))
             .build()
 
-        // 3. Bildirimi gönder (try-catch ile güvenli çağrı)
         try {
             NotificationManagerCompat.from(this).notify(notificationId, notification)
         } catch (e: SecurityException) {
-            Log.e("FCM", "Bildirim gönderilemedi - İzin hatası: ${e.message}")
         }
     }
 
@@ -119,9 +110,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             manager.createNotificationChannel(channel)
         }
     }
-
     override fun onNewToken(token: String) {
         super.onNewToken(token)
-        Log.d("FCM", "Yeni Token: $token")
     }
 }

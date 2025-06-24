@@ -8,7 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="app_const_color">#fa0351</color>
+    <color name="app_const_color">#E70F5C</color>
     <color name="green_color">#008e4a</color>
     <color name="app_const_color_1">#c70140</color>
 </resources>
