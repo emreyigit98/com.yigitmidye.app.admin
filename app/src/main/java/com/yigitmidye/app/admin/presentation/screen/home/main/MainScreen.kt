@@ -38,6 +38,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.yigitmidye.app.admin.QueryActivity
 import com.yigitmidye.app.admin.R
 import com.yigitmidye.app.admin.SettingActivity
 import com.yigitmidye.app.admin.presentation.component.top_app_bar.MainTopAppBar
@@ -49,7 +50,6 @@ import com.yigitmidye.app.admin.presentation.screen.home.road.RoadScreen
 import com.yigitmidye.app.admin.util.currentScreen
 import com.yigitmidye.app.admin.util.tabRowOptions
 import kotlinx.coroutines.launch
-
 
 @Composable
 fun MainScreen(modifier: Modifier = Modifier) {
@@ -69,7 +69,10 @@ fun MainScreen(modifier: Modifier = Modifier) {
                     val intent = Intent(context, SettingActivity::class.java)
                     context.startActivity(intent)
                 },
-                queryClick = {}
+                queryClick = {
+                    val intent = Intent(context,QueryActivity::class.java)
+                    context.startActivity(intent)
+                }
             )
         }
     ) { paddingValues ->

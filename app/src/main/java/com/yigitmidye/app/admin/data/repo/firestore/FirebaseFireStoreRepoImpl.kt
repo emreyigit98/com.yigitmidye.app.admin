@@ -19,6 +19,16 @@ class FirebaseFireStoreRepoImpl @Inject constructor(private val firebase: Fireba
             .whereLessThanOrEqualTo("timestamp",endDate)
     }
 
+    override fun getQueryDateOrders(
+        startDate: Timestamp,
+        endDate: Timestamp
+    ): Task<QuerySnapshot> {
+        return firebase.collection("orders")
+            .whereGreaterThanOrEqualTo("timestamp",startDate)
+            .whereLessThanOrEqualTo("timestamp",endDate)
+            .get()
+    }
+
     override fun getLocalDateOrdersDetail(documentId: String): Task<DocumentSnapshot> {
         return firebase.collection("orders").document(documentId).get()
     }
