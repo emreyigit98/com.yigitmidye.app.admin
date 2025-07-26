@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExtendedFloatingActionButton
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -24,7 +23,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.firebase.Timestamp
@@ -47,6 +45,8 @@ fun QueryScreen(
     val calendar = Calendar.getInstance()
 
     val queryUiState by queryViewModel.queryUiState.collectAsState()
+
+    val response = queryUiState.successful?.sumOf { it.totalPrice }
 
     val datePicker = android.app.DatePickerDialog(
         context,
@@ -76,7 +76,8 @@ fun QueryScreen(
             QueryTopAppBar(
                 onBackPress = {
                     activity?.finish()
-                }
+                },
+                totalPrice = response
             )
         },
         floatingActionButton = {
